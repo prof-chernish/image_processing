@@ -15,7 +15,6 @@ DEVICE = torch.device("cpu")
 # безопасные значения для CPU
 TILE = 256
 TILE_PAD = 10
-MAX_SIDE = 1200  # честный лимит для CPU
 DEFAULT_SCALE = 2
 # ----------------------------
 
@@ -43,14 +42,6 @@ _upsampler = RealESRGANer(
 # ----------------------------------------------------
 
 
-def _check_size(pil_image: Image.Image):
-    w, h = pil_image.size
-    if max(w, h) > MAX_SIDE:
-        raise ValueError(
-            f"Изображение слишком большое для CPU-апскейла. "
-            f"Максимальная сторона: {MAX_SIDE}px, сейчас: {max(w, h)}px."
-        )
-
 
 def upscale_image(pil_image: Image.Image, scale: int = DEFAULT_SCALE) -> Image.Image:
     """
@@ -59,8 +50,6 @@ def upscale_image(pil_image: Image.Image, scale: int = DEFAULT_SCALE) -> Image.I
     """
     if scale not in (2, 4):
         raise ValueError("scale должен быть 2 или 4")
-
-    _check_size(pil_image)
 
     img = np.array(pil_image.convert("RGB"))
 
