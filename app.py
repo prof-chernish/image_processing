@@ -130,7 +130,9 @@ else:
 # новая картинка → сбрасываем результат
 if st.session_state.image_id != current_image_id:
     st.session_state.image_id = current_image_id
-    st.session_state.output_image = None
+    reset_result()
+
+
 
 
 st.subheader("Исходное изображение")
