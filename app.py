@@ -6,7 +6,7 @@ from PIL import Image
 from pipeline import process_image
 from postprocessing.preview import apply_postprocessing
 
-from pipeline import UpscaleLimitError
+from pipeline import ImageTooLargeError
 
 
 BASE_PREVIEW_WIDTH = 200
@@ -188,7 +188,7 @@ if ui_mode == "Простой":
                     input_image,
                     do_colorize=do_colorize,
                 )
-            except UpscaleLimitError as e:
+            except ImageTooLargeError as e:
                 st.error(str(e))
                 st.stop()
 
@@ -265,7 +265,7 @@ else:
                     do_post_denoise=do_post_denoise,
                     do_sharpen=do_sharpen,
                 )
-            except UpscaleLimitError as e:
+            except ImageTooLargeError as e:
                 st.error(str(e))
                 st.stop()
 
