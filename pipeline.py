@@ -51,6 +51,9 @@ def process_image(
 
     img = pil_image
 
+    if do_upscale:
+        check_upscale_allowed(img, scale=4)
+
     # 1. Ultra-light denoise (по умолчанию OFF)
     if do_denoise:
         img = denoise_image(img, h=1)
