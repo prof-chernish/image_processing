@@ -6,6 +6,8 @@ from PIL import Image
 from pipeline import process_image
 from postprocessing.preview import apply_postprocessing
 
+from pipeline import UpscaleLimitError
+
 
 BASE_PREVIEW_WIDTH = 200
 DEMO_DIR = "demo_images"
@@ -181,12 +183,18 @@ if ui_mode == "Простой":
 
     if run:
         with st.spinner("Обрабатываем изображение..."):
-            base = process_image(
-                input_image,
-                do_colorize=do_colorize,
-            )
+            try:
+                base = process_image(
+                    input_image,
+                    do_colorize=do_colorize,
+                )
+            except UpscaleLimitError as e:
+                st.error(str(e))
+                st.stop()
+
             st.session_state.base_output_image = base
             st.session_state.preview_image = base
+
 
 
 # -----------------------------
@@ -248,16 +256,23 @@ else:
 
     if run:
         with st.spinner("Обрабатываем изображение..."):
-            base = process_image(
-                input_image,
-                do_deblur=do_deblur,
-                do_colorize=do_colorize,
-                do_upscale=do_upscale,
-                do_post_denoise=do_post_denoise,
-                do_sharpen=do_sharpen,
-            )
+            try:
+                base = process_image(
+                    input_image,
+                    do_deblur=do_deblur,
+                    do_colorize=do_colorize,
+                    do_upscale=do_upscale,
+                    do_post_denoise=do_post_denoise,
+                    do_sharpen=do_sharpen,
+                )
+            except UpscaleLimitError as e:
+                st.error(str(e))
+                st.stop()
+
             st.session_state.base_output_image = base
             st.session_state.preview_image = base
+
+
 
 # -----------------------------
 # Постобработка (онлайн) — после любого режима

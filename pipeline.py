@@ -7,6 +7,32 @@ from models.upscale.upscale import upscale_image
 from classical.post_denoise import post_denoise_image
 from classical.sharpen import sharpen_image
 
+class UpscaleLimitError(Exception):
+    """Изображение слишком большое для апскейла"""
+    pass
+
+
+def check_upscale_allowed(
+    image: Image.Image,
+    *,
+    scale: int = 4,
+    max_output_pixels: int = 16_000_000,  # ~4000x4000
+):
+    w, h = image.size
+    out_w = w * scale
+    out_h = h * scale
+    out_pixels = out_w * out_h
+
+    if out_pixels > max_output_pixels:
+        raise UpscaleLimitError(
+            f"Изображение слишком большое для апскейла ×{scale}.\n\n"
+            f"Размер после увеличения: {out_w}×{out_h} px\n"
+            f"Лимит сервиса: ~4000×4000 px\n\n"
+            f"Попробуйте загрузить изображение меньшего размера "
+            f"или отключить апскейл."
+        )
+
+
 
 def process_image(
     pil_image: Image.Image,
@@ -39,7 +65,9 @@ def process_image(
 
     # 4. Upscale
     if do_upscale:
+        check_upscale_allowed(img, scale=4)
         img = upscale_image(img)
+
 
     # 5. Post-upscale denoise (стабилизация краёв)
     if do_post_denoise:
