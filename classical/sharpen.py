@@ -1,5 +1,4 @@
 import numpy as np
-import cv2
 from PIL import Image
 
 
@@ -16,7 +15,7 @@ def sharpen_image(
     radius    — радиус размытия (1–2 для портретов, 2–3 для сцен)
     threshold — порог (0 = шарпить всё)
     """
-
+    import cv2
     img = np.array(pil_image.convert("RGB"))
     img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 

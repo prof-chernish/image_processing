@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 from PIL import Image
 
@@ -11,7 +10,7 @@ def post_denoise_image(
     Лёгкое сглаживание после апскейла.
     Стабилизация краёв.
     """
-
+    import cv2
     img = np.array(pil_image.convert("RGB"))
 
     smoothed = cv2.GaussianBlur(

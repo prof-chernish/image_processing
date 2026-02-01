@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 from PIL import Image
 
@@ -13,7 +12,7 @@ def denoise_image(
     Мягкий денойз
 
     """
-
+    import cv2
     img = np.array(pil_image.convert("RGB"))
 
     denoised = cv2.fastNlMeansDenoisingColored(
