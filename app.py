@@ -176,10 +176,16 @@ if ui_mode == "Простой":
 
     if upscale_mode.startswith("Без"):
         preview_width = BASE_PREVIEW_WIDTH
+        pipeline_upscale_mode = "enhance"
+        pipeline_upscale_scale = 2
     elif "2" in upscale_mode:
         preview_width = BASE_PREVIEW_WIDTH * 2
+        pipeline_upscale_mode = "resize"
+        pipeline_upscale_scale = 2
     else:
         preview_width = BASE_PREVIEW_WIDTH * 4
+        pipeline_upscale_mode = "resize"
+        pipeline_upscale_scale = 4
 
     run = st.button("Восстановить")
 
@@ -189,7 +195,10 @@ if ui_mode == "Простой":
                 base = process_image(
                     input_image,
                     do_colorize=do_colorize,
+                    upscale_mode=pipeline_upscale_mode,
+                    upscale_scale=pipeline_upscale_scale,
                 )
+
             except ImageTooLargeError as e:
                 st.error(str(e))
                 st.stop()
@@ -238,7 +247,11 @@ else:
 
     preview_width = BASE_PREVIEW_WIDTH
 
-    if do_upscale:
+    if not do_upscale:
+        pipeline_upscale_mode = None
+        pipeline_upscale_scale = 2
+
+    else:
         upscale_mode = st.selectbox(
             "Режим увеличения",
             [
@@ -249,10 +262,18 @@ else:
             on_change=reset_result,
         )
 
-        if "2" in upscale_mode:
+        if upscale_mode.startswith("Без"):
+            preview_width = BASE_PREVIEW_WIDTH
+            pipeline_upscale_mode = "enhance"
+            pipeline_upscale_scale = 2
+        elif "2" in upscale_mode:
             preview_width = BASE_PREVIEW_WIDTH * 2
-        elif "4" in upscale_mode:
+            pipeline_upscale_mode = "resize"
+            pipeline_upscale_scale = 2
+        else:
             preview_width = BASE_PREVIEW_WIDTH * 4
+            pipeline_upscale_mode = "resize"
+            pipeline_upscale_scale = 4
 
     run = st.button("Обработать")
 
@@ -263,10 +284,12 @@ else:
                     input_image,
                     do_deblur=do_deblur,
                     do_colorize=do_colorize,
-                    do_upscale=do_upscale,
+                    upscale_mode=pipeline_upscale_mode,
+                    upscale_scale=pipeline_upscale_scale,
                     do_post_denoise=do_post_denoise,
                     do_sharpen=do_sharpen,
                 )
+
             except ImageTooLargeError as e:
                 st.error(str(e))
                 st.stop()

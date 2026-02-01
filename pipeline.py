@@ -6,6 +6,7 @@ from models.colorize.colorize import colorize_image
 from models.upscale.upscale import upscale_image
 from classical.post_denoise import post_denoise_image
 from classical.sharpen import sharpen_image
+from models.upscale.modes import mode_upscale_image, mode_improve_details
 
 class ImageTooLargeError(Exception):
     """Изображение превышает допустимый размер"""
@@ -16,7 +17,7 @@ class ImageTooLargeError(Exception):
 def check_image_size_allowed(
     image: Image.Image,
     *,
-    max_pixels: int = 12_000_000,
+    max_pixels: int = 2_000_000,
 ):
     w, h = image.size
     pixels = w * h
@@ -25,7 +26,7 @@ def check_image_size_allowed(
         raise ImageTooLargeError(
             f"Изображение слишком большое для обработки.\n\n"
             f"Размер: {w}×{h} px\n"
-            f"Максимально допустимо: ~3000×4000 px\n\n"
+            f"Максимально допустимо: ~1000×2000 px\n\n"
             f"Пожалуйста, уменьшите изображение и попробуйте снова."
         )
 
@@ -38,7 +39,8 @@ def process_image(
     do_denoise: bool = True,
     do_deblur: bool = True,
     do_colorize: bool = True,
-    do_upscale: bool = True,
+    upscale_mode: str | None = None,   # None | "resize" | "enhance"
+    upscale_scale: int = 2,             # используется ТОЛЬКО для resize
     do_post_denoise: bool = True,
     do_sharpen: bool = True,
 ) -> Image.Image:
@@ -63,9 +65,12 @@ def process_image(
     if do_colorize:
         img = colorize_image(img)
 
-    # 4. Upscale
-    if do_upscale:
-        img = upscale_image(img)
+    # Upscale / Enhance
+    if upscale_mode == "resize":
+        img = mode_upscale_image(img, scale=upscale_scale)
+
+    elif upscale_mode == "enhance":
+        img = mode_improve_details(img)
 
 
     # 5. Post-upscale denoise (стабилизация краёв)
