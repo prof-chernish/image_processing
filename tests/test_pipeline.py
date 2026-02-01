@@ -1,8 +1,8 @@
-import pytest
 import numpy as np
+import pytest
 from PIL import Image
 
-from pipeline import process_image, ImageTooLargeError
+from pipeline import ImageTooLargeError, process_image
 from tests.utils import images_are_different
 
 
@@ -12,7 +12,6 @@ def make_image(w, h, random=False):
     else:
         arr = np.zeros((h, w, 3), dtype=np.uint8)
     return Image.fromarray(arr)
-
 
 
 def test_pipeline_all_steps_enabled():
@@ -68,6 +67,7 @@ def test_pipeline_some_steps_enabled():
     assert out.size == img.size
     assert images_are_different(img, out)
 
+
 def test_pipeline_rejects_too_large_image():
     # больше 2_000_000 пикселей
     img = make_image(2000, 1100)
@@ -82,6 +82,8 @@ def test_pipeline_rejects_too_large_image():
             do_post_denoise=False,
             do_sharpen=False,
         )
+
+
 def test_pipeline_accepts_boundary_size_noop():
     img = make_image(2000, 1000, random=True)
 
@@ -98,4 +100,3 @@ def test_pipeline_accepts_boundary_size_noop():
     assert isinstance(out, Image.Image)
     assert out.size == img.size
     assert not images_are_different(img, out)
-

@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
+
 
 class BaseColor(nn.Module):
     def __init__(self):
@@ -14,7 +14,8 @@ class BaseColor(nn.Module):
 
     def unnormalize_ab(self, in_ab: torch.Tensor) -> torch.Tensor:
         return in_ab * self.ab_norm
-    
+
+
 class ECCVGenerator(BaseColor):
     def __init__(self, norm_layer=nn.BatchNorm2d):
         super().__init__()
@@ -56,21 +57,33 @@ class ECCVGenerator(BaseColor):
         ]
 
         model5 = [
-            nn.Conv2d(512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True),
+            nn.Conv2d(
+                512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True
+            ),
             nn.ReLU(True),
-            nn.Conv2d(512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True),
+            nn.Conv2d(
+                512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True
+            ),
             nn.ReLU(True),
-            nn.Conv2d(512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True),
+            nn.Conv2d(
+                512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True
+            ),
             nn.ReLU(True),
             norm_layer(512),
         ]
 
         model6 = [
-            nn.Conv2d(512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True),
+            nn.Conv2d(
+                512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True
+            ),
             nn.ReLU(True),
-            nn.Conv2d(512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True),
+            nn.Conv2d(
+                512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True
+            ),
             nn.ReLU(True),
-            nn.Conv2d(512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True),
+            nn.Conv2d(
+                512, 512, kernel_size=3, dilation=2, stride=1, padding=2, bias=True
+            ),
             nn.ReLU(True),
             norm_layer(512),
         ]

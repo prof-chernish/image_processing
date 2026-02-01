@@ -1,8 +1,9 @@
-from PIL import Image
 import numpy as np
+from PIL import Image
 
 from postprocessing.preview import apply_postprocessing
 from tests.utils import images_are_different
+
 
 def test_postprocessing_changes_image():
     rng = np.random.default_rng(seed=777)

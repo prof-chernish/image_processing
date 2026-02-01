@@ -1,14 +1,13 @@
-from PIL import Image
-import numpy as np
-import torch
 from pathlib import Path
 
-from realesrgan import RealESRGANer
+import numpy as np
+import torch
 from basicsr.archs.srvgg_arch import SRVGGNetCompact
-
+from PIL import Image
+from realesrgan import RealESRGANer
 
 # ---------- Конфиг ----------
-ROOT = Path(__file__).resolve().parents[2]   # корень проекта
+ROOT = Path(__file__).resolve().parents[2]  # корень проекта
 WEIGHTS_PATH = ROOT / "weights" / "realesr-general-x4v3.pth"
 DEVICE = torch.device("cpu")
 
@@ -40,7 +39,6 @@ _upsampler = RealESRGANer(
     device=DEVICE,
 )
 # ----------------------------------------------------
-
 
 
 def upscale_image(pil_image: Image.Image, scale: int = DEFAULT_SCALE) -> Image.Image:

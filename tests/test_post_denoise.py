@@ -1,8 +1,9 @@
-from PIL import Image
 import numpy as np
+from PIL import Image
 
 from classical.post_denoise import post_denoise_image
 from tests.utils import images_are_different
+
 
 def test_post_denoise_changes_image():
     rng = np.random.default_rng(seed=123)
@@ -16,5 +17,3 @@ def test_post_denoise_changes_image():
     out = post_denoise_image(img, sigma=0.6)
 
     assert images_are_different(img, out)
-
-

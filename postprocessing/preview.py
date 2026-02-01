@@ -17,16 +17,12 @@ def apply_postprocessing(
     img = base_img
 
     if blur_strength > 0:
-        img = img.filter(
-            ImageFilter.GaussianBlur(radius=float(blur_strength))
-        )
+        img = img.filter(ImageFilter.GaussianBlur(radius=float(blur_strength)))
 
     if sharpen_strength > 0:
         img = img.filter(
             ImageFilter.UnsharpMask(
-                radius=2,
-                percent=int(sharpen_strength),
-                threshold=3
+                radius=2, percent=int(sharpen_strength), threshold=3
             )
         )
 

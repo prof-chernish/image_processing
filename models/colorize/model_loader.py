@@ -1,12 +1,13 @@
 from pathlib import Path
+
 import torch
-import torch.nn as nn
 
 from models.colorize.eccv16 import ECCVGenerator
 
-ROOT = Path(__file__).resolve().parents[2]   # корень проекта
+ROOT = Path(__file__).resolve().parents[2]  # корень проекта
 WEIGHTS_PATH = ROOT / "weights" / "colorization_release_v2-9b330a0b.pth"
 DEVICE = torch.device("cpu")
+
 
 def load_state_dict_flexible(weights_path: str) -> dict:
     obj = torch.load(weights_path, map_location="cpu")
@@ -18,7 +19,9 @@ def load_state_dict_flexible(weights_path: str) -> dict:
             return obj
     raise ValueError(f"Unsupported weights format in: {weights_path}")
 
+
 _model = None
+
 
 def get_model(device=DEVICE):
     global _model

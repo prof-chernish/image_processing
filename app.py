@@ -1,17 +1,14 @@
 import io
 import os
+
 import streamlit as st
 from PIL import Image
 
-from pipeline import process_image
+from pipeline import ImageTooLargeError, process_image
 from postprocessing.preview import apply_postprocessing
-
-from pipeline import ImageTooLargeError
-
 
 BASE_PREVIEW_WIDTH = 200
 DEMO_DIR = "demo_images"
-
 
 
 def reset_result():
@@ -34,12 +31,11 @@ def update_preview():
         sharpen_strength=st.session_state.sharpen_strength,
     )
 
+
 def reset_postprocessing():
     st.session_state.blur_strength = 0.0
     st.session_state.sharpen_strength = 0
     update_preview()
-
-
 
 
 st.set_page_config(
@@ -47,16 +43,14 @@ st.set_page_config(
     layout="centered",
 )
 
+
 def get_demo_images():
     if not os.path.exists(DEMO_DIR):
         return []
 
     files = os.listdir(DEMO_DIR)
 
-    images = [
-        f for f in files
-        if f.lower().endswith((".jpg", ".jpeg", ".png"))
-    ]
+    images = [f for f in files if f.lower().endswith((".jpg", ".jpeg", ".png"))]
 
     return sorted(images)
 
@@ -133,8 +127,6 @@ if st.session_state.image_id != current_image_id:
     reset_result()
 
 
-
-
 st.subheader("Исходное изображение")
 st.image(input_image, width=BASE_PREVIEW_WIDTH)
 
@@ -205,7 +197,6 @@ if ui_mode == "Простой":
 
             st.session_state.base_output_image = base
             st.session_state.preview_image = base
-
 
 
 # -----------------------------
@@ -298,7 +289,6 @@ else:
             st.session_state.preview_image = base
 
 
-
 # -----------------------------
 # Постобработка (онлайн) — после любого режима
 # -----------------------------
@@ -325,8 +315,8 @@ if st.session_state.base_output_image is not None:
     )
 
     st.button(
-    "Сбросить постобработку",
-    on_click=reset_postprocessing,
+        "Сбросить постобработку",
+        on_click=reset_postprocessing,
     )
 
 

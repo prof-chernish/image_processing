@@ -1,8 +1,9 @@
-from PIL import Image
 import numpy as np
+from PIL import Image
 
 from models.colorize.colorize import colorize_image
 from tests.utils import images_are_different
+
 
 def test_colorize_changes_grayscale_image():
     # создаём grayscale изображение с градиентом
@@ -21,5 +22,3 @@ def test_colorize_changes_grayscale_image():
 
     # 2. изображение должно отличаться от исходного
     assert images_are_different(img_gray.convert("RGB"), out)
-
-

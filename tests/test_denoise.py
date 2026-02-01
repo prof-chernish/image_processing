@@ -1,8 +1,9 @@
-from PIL import Image
 import numpy as np
+from PIL import Image
 
 from classical.denoise import denoise_image
 from tests.utils import images_are_different
+
 
 def test_denoise_changes_image():
     # создаём тестовое изображение с шумом

@@ -1,8 +1,9 @@
-from PIL import Image
 import numpy as np
+from PIL import Image
 
 from classical.sharpen import sharpen_image
 from tests.utils import images_are_different
+
 
 def test_sharpen_changes_image():
     rng = np.random.default_rng(seed=2024)

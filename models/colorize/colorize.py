@@ -1,16 +1,15 @@
 import numpy as np
+import torch
+import torch.nn.functional as F
 from PIL import Image
 from skimage import color as skcolor
 
-import torch
-import torch.nn.functional as F
-
 from .model_loader import get_model
-
 
 # =========================================================
 # Image utils (ВЗЯТО ИЗ colorize_one_eccv16.py)
 # =========================================================
+
 
 def _load_img_rgb(pil_image: Image.Image) -> np.ndarray:
     """
@@ -60,9 +59,7 @@ def _postprocess_to_rgb(tens_l_orig: torch.Tensor, out_ab: torch.Tensor) -> Imag
             out_ab, size=hw_orig, mode="bilinear", align_corners=False
         )
 
-    lab = torch.cat([tens_l_orig, out_ab], dim=1)[0] \
-              .permute(1, 2, 0) \
-              .cpu().numpy()
+    lab = torch.cat([tens_l_orig, out_ab], dim=1)[0].permute(1, 2, 0).cpu().numpy()
 
     rgb = skcolor.lab2rgb(lab)
     rgb_u8 = (np.clip(rgb, 0.0, 1.0) * 255.0 + 0.5).astype(np.uint8)
@@ -72,6 +69,7 @@ def _postprocess_to_rgb(tens_l_orig: torch.Tensor, out_ab: torch.Tensor) -> Imag
 # =========================================================
 # Public API
 # =========================================================
+
 
 def colorize_image(
     pil_image: Image.Image,

@@ -11,6 +11,7 @@ def post_denoise_image(
     Стабилизация краёв.
     """
     import cv2
+
     img = np.array(pil_image.convert("RGB"))
 
     smoothed = cv2.GaussianBlur(

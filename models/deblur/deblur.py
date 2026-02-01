@@ -1,10 +1,8 @@
-from pathlib import Path
 import numpy as np
 import torch
 from PIL import Image
 
 from models.deblur.model_loader import get_model
-
 
 # ---------- конфиг ----------
 DEVICE = torch.device("cpu")
@@ -20,6 +18,8 @@ def _get_model():
     if _model is None:
         _model = get_model(device=DEVICE)
     return _model
+
+
 # ----------------------------------------------------
 
 
@@ -39,11 +39,7 @@ def deblur_image(pil_image: Image.Image) -> Image.Image:
     pad_h = (32 - h % 32) % 32
     pad_w = (32 - w % 32) % 32
 
-    img_padded = np.pad(
-        img,
-        ((0, pad_h), (0, pad_w), (0, 0)),
-        mode="reflect"
-    )
+    img_padded = np.pad(img, ((0, pad_h), (0, pad_w), (0, 0)), mode="reflect")
 
     x = img_padded / 127.5 - 1.0
     x = torch.from_numpy(x).permute(2, 0, 1).unsqueeze(0)

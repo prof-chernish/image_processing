@@ -13,13 +13,14 @@ def denoise_image(
 
     """
     import cv2
+
     img = np.array(pil_image.convert("RGB"))
 
     denoised = cv2.fastNlMeansDenoisingColored(
         img,
         None,
-        h,                 # сила цветового денойза
-        h,                 # сила яркостного денойза
+        h,  # сила цветового денойза
+        h,  # сила яркостного денойза
         template_window_size,
         search_window_size,
     )

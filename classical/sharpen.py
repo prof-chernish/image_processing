@@ -16,6 +16,7 @@ def sharpen_image(
     threshold — порог (0 = шарпить всё)
     """
     import cv2
+
     img = np.array(pil_image.convert("RGB"))
     img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 

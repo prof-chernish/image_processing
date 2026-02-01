@@ -1,4 +1,5 @@
 from PIL import Image
+
 from models.upscale.upscale import upscale_image
 
 
@@ -26,9 +27,6 @@ def mode_improve_details(
     upscaled = upscale_image(pil_image, scale=scale)
 
     # 3. уменьшаем обратно
-    improved = upscaled.resize(
-        original_size,
-        resample=Image.LANCZOS
-    )
+    improved = upscaled.resize(original_size, resample=Image.LANCZOS)
 
     return improved
