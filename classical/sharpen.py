@@ -11,9 +11,9 @@ def sharpen_image(
     """
     Нерезкое маскирование (Unsharp Mask).
 
-    amount    — сила шарпа (0.5–1.5 обычно)
-    radius    — радиус размытия (1–2 для портретов, 2–3 для сцен)
-    threshold — порог (0 = шарпить всё)
+    amount    — сила шарпа
+    radius    — радиус размытия
+    threshold — порог
     """
     import cv2
 

@@ -6,6 +6,8 @@ from tests.utils import images_are_different
 
 
 def test_post_denoise_changes_image():
+    # проверяем, что post denoise  меняет изображение
+
     rng = np.random.default_rng(seed=123)
 
     base = np.full((128, 128, 3), 128, dtype=np.uint8)

@@ -6,6 +6,8 @@ from tests.utils import images_are_different
 
 
 def test_postprocessing_changes_image():
+    # проверяем, что postprocessing меняет изображение
+
     rng = np.random.default_rng(seed=777)
 
     base = np.full((128, 128, 3), 130, dtype=np.uint8)
@@ -24,6 +26,8 @@ def test_postprocessing_changes_image():
 
 
 def test_postprocessing_noop_when_disabled():
+    # проверяем, что postprocessing не меняет изображение при нулевых параметрах
+    
     img = Image.new("RGB", (128, 128), color="gray")
 
     out = apply_postprocessing(

@@ -6,19 +6,16 @@ from basicsr.archs.srvgg_arch import SRVGGNetCompact
 from PIL import Image
 from realesrgan import RealESRGANer
 
-# ---------- Конфиг ----------
 ROOT = Path(__file__).resolve().parents[2]  # корень проекта
 WEIGHTS_PATH = ROOT / "weights" / "realesr-general-x4v3.pth"
 DEVICE = torch.device("cpu")
 
-# безопасные значения для CPU
 TILE = 256
 TILE_PAD = 10
 DEFAULT_SCALE = 2
-# ----------------------------
 
 
-# ---------- Инициализация модели (ОДИН РАЗ) ----------
+# инициализация модели
 _model = SRVGGNetCompact(
     num_in_ch=3,
     num_out_ch=3,
@@ -38,7 +35,6 @@ _upsampler = RealESRGANer(
     half=False,
     device=DEVICE,
 )
-# ----------------------------------------------------
 
 
 def upscale_image(pil_image: Image.Image, scale: int = DEFAULT_SCALE) -> Image.Image:

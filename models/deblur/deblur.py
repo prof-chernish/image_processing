@@ -4,12 +4,8 @@ from PIL import Image
 
 from models.deblur.model_loader import get_model
 
-# ---------- конфиг ----------
 DEVICE = torch.device("cpu")
-# ---------------------------
 
-
-# ---------- инициализация модели (один раз) ----------
 _model = None
 
 
@@ -20,8 +16,6 @@ def _get_model():
     return _model
 
 
-# ----------------------------------------------------
-
 
 def deblur_image(pil_image: Image.Image) -> Image.Image:
     """
@@ -31,7 +25,7 @@ def deblur_image(pil_image: Image.Image) -> Image.Image:
 
     model = _get_model()
 
-    # --- preprocess ---
+    # препроцессинг
     img = np.array(pil_image.convert("RGB")).astype(np.float32)
     h, w, _ = img.shape
 
@@ -45,11 +39,11 @@ def deblur_image(pil_image: Image.Image) -> Image.Image:
     x = torch.from_numpy(x).permute(2, 0, 1).unsqueeze(0)
     x = x.to(DEVICE)
 
-    # --- inference ---
+    # инференс
     with torch.no_grad():
         y = model(x)
 
-    # --- postprocess ---
+    # постпроцесс
     y = y.squeeze(0).permute(1, 2, 0).cpu().numpy()
     y = (y + 1.0) * 127.5
     y = np.clip(y, 0, 255).astype(np.uint8)

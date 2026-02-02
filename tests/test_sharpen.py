@@ -6,6 +6,8 @@ from tests.utils import images_are_different
 
 
 def test_sharpen_changes_image():
+    # проверяем, что sharpen меняет изображение
+    
     rng = np.random.default_rng(seed=2024)
 
     # базовое изображение с шумом

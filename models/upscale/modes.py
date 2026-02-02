@@ -20,13 +20,13 @@ def mode_improve_details(
     Алгоритм:
     upscale -> resize обратно к исходному размеру
     """
-    # 1. исходный размер
+    # исходный размер
     original_size = pil_image.size  # (width, height)
 
-    # 2. апскейл (получаем больше деталей)
+    # апскейл (получаем больше деталей)
     upscaled = upscale_image(pil_image, scale=scale)
 
-    # 3. уменьшаем обратно
+    # уменьшаем обратно
     improved = upscaled.resize(original_size, resample=Image.LANCZOS)
 
     return improved

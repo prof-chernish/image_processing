@@ -6,6 +6,8 @@ from tests.utils import images_are_different
 
 
 def test_denoise_changes_image():
+    # проверяем, что denoise меняет изображение
+    
     # создаём тестовое изображение с шумом
     rng = np.random.default_rng(seed=42)
 

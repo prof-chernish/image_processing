@@ -6,6 +6,8 @@ from tests.utils import images_are_different
 
 
 def test_colorize_changes_grayscale_image():
+    # проверяем, что colorize меняет изображение
+    
     # создаём grayscale изображение с градиентом
     h, w = 128, 128
     gradient = np.tile(
@@ -17,8 +19,8 @@ def test_colorize_changes_grayscale_image():
 
     out = colorize_image(img_gray, size=128)
 
-    # 1. выход должен быть RGB
+    # выход должен быть RGB
     assert out.mode == "RGB"
 
-    # 2. изображение должно отличаться от исходного
+    # изображение должно отличаться от исходного
     assert images_are_different(img_gray.convert("RGB"), out)

@@ -38,7 +38,7 @@ def process_image(
     do_deblur: bool = True,
     do_colorize: bool = True,
     upscale_mode: str | None = None,  # None | "resize" | "enhance"
-    upscale_scale: int = 2,  # используется ТОЛЬКО для resize
+    upscale_scale: int = 2,  # используется только для resize
     do_post_denoise: bool = True,
     do_sharpen: bool = True,
 ) -> Image.Image:
@@ -48,33 +48,33 @@ def process_image(
     """
 
     img = pil_image
-    # 🔒 ЕДИНАЯ РАННЯЯ ПРОВЕРКА
+    # проверка размера
     check_image_size_allowed(img)
 
-    # 1. Ultra-light denoise (по умолчанию OFF)
+    # denoise
     if do_denoise:
         img = denoise_image(img, h=1)
 
-    # 2. Deblur
+    # deblur
     if do_deblur:
         img = deblur_image(img)
 
-    # 3. Colorize
+    # colorize
     if do_colorize:
         img = colorize_image(img)
 
-    # Upscale / Enhance
+    # upscale
     if upscale_mode == "resize":
         img = mode_upscale_image(img, scale=upscale_scale)
 
     elif upscale_mode == "enhance":
         img = mode_improve_details(img)
 
-    # 5. Post-upscale denoise (стабилизация краёв)
+    # postprocessing (стабилизация краёв)
     if do_post_denoise:
         img = post_denoise_image(img)
 
-    # 6. Sharpen (мягкий, OFF по умолчанию)
+    # postprocessing (повышение резкостиЫ)
     if do_sharpen:
         img = sharpen_image(img)
 

@@ -30,7 +30,7 @@ def get_model(device=DEVICE):
     load_weights(model, WEIGHTS_PATH)
     model.to(device)
 
-    # используем train(), т.к. модель обучалась и инференсилась в этом режиме
+    # используем train(), т.к. обучение и инференс модели проходили в этом режиме
     model.train()
 
     return model

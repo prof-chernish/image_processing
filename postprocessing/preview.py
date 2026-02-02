@@ -9,7 +9,7 @@ def apply_postprocessing(
     """
     Быстрая интерактивная постобработка изображения.
 
-    base_img         — результат основного пайплайна (НЕ меняется)
+    base_img         — результат основного пайплайна (не меняется)
     blur_strength    — 0.0 .. 3.0 (радиус GaussianBlur)
     sharpen_strength — 0 .. 100 (сила UnsharpMask)
     """

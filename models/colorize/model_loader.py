@@ -12,7 +12,6 @@ DEVICE = torch.device("cpu")
 def load_state_dict_flexible(weights_path: str) -> dict:
     obj = torch.load(weights_path, map_location="cpu")
     if isinstance(obj, dict):
-        # common patterns: {"state_dict": ...} or direct state_dict
         if "state_dict" in obj and isinstance(obj["state_dict"], dict):
             return obj["state_dict"]
         if all(isinstance(k, str) for k in obj.keys()):

@@ -7,6 +7,7 @@ from tests.utils import images_are_different
 
 
 def make_image(w, h, random=False):
+    # вспомогательная функция для создания изображения
     if random:
         arr = np.random.randint(0, 255, (h, w, 3), dtype=np.uint8)
     else:
@@ -15,6 +16,9 @@ def make_image(w, h, random=False):
 
 
 def test_pipeline_all_steps_enabled():
+    # проверяем, что пайплайн работает при всех включенных шагах
+    # итоговое изображение должно меняться
+    
     img = make_image(64, 64, random=True)
 
     out = process_image(
@@ -33,6 +37,9 @@ def test_pipeline_all_steps_enabled():
 
 
 def test_pipeline_noop_when_all_disabled():
+    # проверяем, что пайплайн работает при всех выключенных шагах
+    # итоговое изображение не должно меняться
+    
     img = make_image(64, 64, random=True)
 
     out = process_image(
@@ -51,6 +58,9 @@ def test_pipeline_noop_when_all_disabled():
 
 
 def test_pipeline_some_steps_enabled():
+    # проверяем, что пайплайн работает при некоторых включенных шагах
+    # итоговое изображение должно меняться
+
     img = make_image(64, 64, random=True)
 
     out = process_image(
@@ -69,7 +79,7 @@ def test_pipeline_some_steps_enabled():
 
 
 def test_pipeline_rejects_too_large_image():
-    # больше 2_000_000 пикселей
+    # программа не должна работать с изображениями, размером больше 2_000_000 пикселей
     img = make_image(2000, 1100)
 
     with pytest.raises(ImageTooLargeError):
@@ -85,6 +95,7 @@ def test_pipeline_rejects_too_large_image():
 
 
 def test_pipeline_accepts_boundary_size_noop():
+    # программа должна работать с изображениями, размером равным 2_000_000 пикселей
     img = make_image(2000, 1000, random=True)
 
     out = process_image(

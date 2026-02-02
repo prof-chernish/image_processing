@@ -6,6 +6,7 @@ from tests.utils import images_are_different
 
 
 def test_deblur_changes_image():
+    # проверяем, что deblur меняет изображение
     rng = np.random.default_rng(seed=2025)
 
     # базовое изображение
@@ -19,8 +20,8 @@ def test_deblur_changes_image():
 
     out = deblur_image(img)
 
-    # 1. размер должен совпадать
+    # размер должен совпадать
     assert out.size == img.size
 
-    # 2. изображение должно отличаться
+    # изображение должно отличаться
     assert images_are_different(img, out)

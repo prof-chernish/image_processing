@@ -6,10 +6,6 @@ from skimage import color as skcolor
 
 from .model_loader import get_model
 
-# =========================================================
-# Image utils (ВЗЯТО ИЗ colorize_one_eccv16.py)
-# =========================================================
-
 
 def _load_img_rgb(pil_image: Image.Image) -> np.ndarray:
     """
@@ -66,10 +62,6 @@ def _postprocess_to_rgb(tens_l_orig: torch.Tensor, out_ab: torch.Tensor) -> Imag
     return Image.fromarray(rgb_u8)
 
 
-# =========================================================
-# Public API
-# =========================================================
-
 
 def colorize_image(
     pil_image: Image.Image,
@@ -81,18 +73,18 @@ def colorize_image(
     Output: PIL.Image (RGB)
     """
 
-    # 1. PIL -> numpy RGB
+    # PIL -> numpy RGB
     img_rgb = _load_img_rgb(pil_image)
 
-    # 2. Preprocess (L channel)
+    # Preprocess (L channel)
     tens_l_orig, tens_l_rs = _preprocess_l(img_rgb, hw=(size, size))
 
-    # 3. Model
+    # Model
     model = get_model()
 
-    # 4. Inference
+    # Inference
     with torch.inference_mode():
         out_ab = model(tens_l_rs)
 
-    # 5. Postprocess -> RGB PIL
+    # Postprocess -> RGB PIL
     return _postprocess_to_rgb(tens_l_orig, out_ab)
