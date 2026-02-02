@@ -18,6 +18,24 @@ def reset_result():
     st.session_state.blur_strength = 0.0
     st.session_state.sharpen_strength = 0
 
+def reset_ui_to_defaults():
+    # режим
+    st.session_state.ui_mode = "Простой"
+
+    # простой режим
+    st.session_state.upscale_mode = "Без изменения размера (повышение качества)"
+    st.session_state.do_colorize = True
+
+    # продвинутый режим 
+    st.session_state.do_deblur = True
+    st.session_state.do_upscale = True
+    st.session_state.do_post_denoise = True
+    st.session_state.do_sharpen = True
+
+    # результат и постобработка
+    reset_result()
+
+
 
 def update_preview():
     base = st.session_state.base_output_image
@@ -124,7 +142,8 @@ else:
 # новая картинка → сбрасываем результат
 if st.session_state.image_id != current_image_id:
     st.session_state.image_id = current_image_id
-    reset_result()
+    reset_ui_to_defaults()
+
 
 
 st.subheader("Исходное изображение")
@@ -138,9 +157,11 @@ st.divider()
 ui_mode = st.radio(
     "Режим работы",
     ["Простой", "Продвинутый"],
+    key="ui_mode",
     horizontal=True,
     on_change=reset_result,
 )
+
 
 st.divider()
 
