@@ -1,14 +1,14 @@
 
 # COLD START WARM-UP
-    import cv2
-    import numpy as np
-    import torch
+import cv2
+import numpy as np
+import torch
 
-    # заставляем cv2 реально инициализироваться
-    _ = cv2.getGaussianKernel(3, 1)
+# заставляем cv2 реально инициализироваться
+_ = cv2.getGaussianKernel(3, 1)
 
-    # прогрев torch
-    _ = torch.zeros(1)
+# прогрев torch
+_ = torch.zeros(1)
 
 warmup()
 
