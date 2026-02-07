@@ -270,9 +270,10 @@ http://localhost:8501.
 Изображения применяются исключительно для демонстрации работы сервиса.
 
 ## Примеры результатов
-
-<img src="examples/before15.jpg" width="100">
-<img src="examples/after15.png" width="200">
+<p>
+    <img src="examples/before15.jpg" width="100">
+    <img src="examples/after15.png" width="200">
+</p>
 
 <img src="examples/before2.jpg" width="100">
 <img src="examples/after2.png" width="200">
