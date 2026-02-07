@@ -1,18 +1,30 @@
 
 # COLD START WARM-UP
-import cv2
-import numpy as np
-import torch
+def warmup():
+    import cv2
+    import numpy as np
+    import torch
 
-# заставляем cv2 реально инициализироваться
-_ = cv2.getGaussianKernel(3, 1)
+    # заставляем cv2 реально инициализироваться
+    _ = cv2.getGaussianKernel(3, 1)
 
-# прогрев torch
-_ = torch.zeros(1)
+    # прогрев torch
+    _ = torch.zeros(1)
 
 warmup()
 
 # END WARM-UP
+
+
+import io
+import os
+
+import streamlit as st
+from PIL import Image
+
+from pipeline import ImageTooLargeError, process_image
+from postprocessing.preview import apply_postprocessing
+
 
 import io
 import os
