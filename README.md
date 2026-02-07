@@ -269,6 +269,39 @@ http://localhost:8501.
 В демонстрационных примерах используются изображения из открытых источников с разрешёнными лицензиями (Public Domain / permissive licenses).
 Изображения применяются исключительно для демонстрации работы сервиса.
 
-требования, время работы
-примеры
+## Примеры результатов
+
+<img src="examples/before15.jpg" width="100">
+<img src="examples/after15.png" width="200">
+
+<img src="examples/before2.jpg" width="100">
+<img src="examples/after2.png" width="200">
+
+<img src="examples/before3.jpg" width="100">
+<img src="examples/after3.png" width="400">
+
+<img src="examples/before5.jpg" width="100">
+<img src="examples/after5.png" width="200">
+
+<img src="examples/before13.jpg" width="100">
+<img src="examples/after13.png" width="200">
+
+<img src="examples/before14.jpg" width="100">
+<img src="examples/after14.png" width="200">
+
+<img src="examples/before20.jpg" width="100">
+<img src="examples/after20.png" width="200">
+
+<img src="examples/before22.jpg" width="100">
+<img src="examples/after22.png" width="200">
+
+<img src="examples/before23.jpg" width="100">
+<img src="examples/after23.png" width="200">
+
+<img src="examples/before26.jpg" width="100">
+<img src="examples/after26.png" width="200">
+
+
+
+
 
