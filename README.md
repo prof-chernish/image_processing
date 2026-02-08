@@ -180,8 +180,8 @@ input → denoise → deblur → colorize → upscale → post-denoise → sharp
 виртуальное окружение, установить зависимости и запустить приложение:
 
 ```bash
-git clone <repository_url>
-cd <project_directory>
+git clone https://github.com/prof-chernish/image_processing
+cd https://github.com/prof-chernish/image_processing
 python -m venv venv
 source venv/bin/activate      # Linux / macOS
 venv\Scripts\activate         # Windows
