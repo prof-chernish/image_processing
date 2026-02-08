@@ -181,12 +181,13 @@ input → denoise → deblur → colorize → upscale → post-denoise → sharp
 
 ```bash
 git clone https://github.com/prof-chernish/image_processing
-cd https://github.com/prof-chernish/image_processing
+cd image_processing
 python -m venv venv
 source venv/bin/activate      # Linux / macOS
 venv\Scripts\activate         # Windows
 pip install -r requirements.txt
 streamlit run app.py
+
 ```
 
 Для упрощения развёртывания также поддерживается запуск в Docker.
